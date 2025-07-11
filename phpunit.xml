@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    syntaxCheck="false"
+    verbose="true"
+    testdox="true"
+>
+    <testsuites>
+        <testsuite name="Academic Bloggers Toolkit Test Suite">
+            <directory>./tests/unit/</directory>
+            <directory>./tests/integration/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./includes/</directory>
+            <directory suffix=".php">./admin/</directory>
+            <directory suffix=".php">./public/</directory>
+            <exclude>
+                <directory suffix=".php">./vendor/</directory>
+                <directory suffix=".php">./node_modules/</directory>
+                <directory suffix=".php">./tests/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="./tests/coverage/html/"/>
+        <log type="coverage-clover" target="./tests/coverage/clover.xml"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+    </logging>
+
+    <php>
+        <const name="WP_TESTS_DOMAIN" value="academic-bloggers-toolkit.test"/>
+        <const name="WP_TESTS_EMAIL" value="admin@academic-bloggers-toolkit.test"/>
+        <const name="WP_TESTS_TITLE" value="Academic Bloggers Toolkit Tests"/>
+        <const name="WP_DEBUG" value="true"/>
+        <const name="SCRIPT_DEBUG" value="true"/>
+        
+        <!-- Database settings for testing -->
+        <const name="DB_NAME" value="abt_test"/>
+        <const name="DB_USER" value="root"/>
+        <const name="DB_PASSWORD" value=""/>
+        <const name="DB_HOST" value="localhost"/>
+        <const name="DB_CHARSET" value="utf8"/>
+        <const name="DB_COLLATE" value=""/>
+        
+        <!-- WordPress table prefix for tests -->
+        <const name="WP_TESTS_TABLE_PREFIX" value="wptests_"/>
+        
+        <!-- Plugins to activate during testing -->
+        <const name="WP_TESTS_ACTIVATED_PLUGINS" value="academic-bloggers-toolkit/academic-bloggers-toolkit.php"/>
+        
+        <!-- Test configuration -->
+        <const name="WP_TESTS_MULTISITE" value="false"/>
+        <const name="WP_TESTS_FORCE_KNOWN_BUGS" value="false"/>
+        
+        <!-- Memory and time limits for tests -->
+        <ini name="memory_limit" value="512M"/>
+        <ini name="max_execution_time" value="300"/>
+    </php>
+
+    <groups>
+        <exclude>
+            <group>external-api</group>
+            <group>performance</group>
+        </exclude>
+    </groups>
+</phpunit>

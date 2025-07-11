@@ -125,6 +125,16 @@ class ABT_Core {
 		 */
 		require_once ABT_PLUGIN_DIR . 'includes/post-types/class-abt-post-types.php';
 
+		/**
+		 * Load admin page classes
+		 */
+		if ( is_admin() ) {
+			require_once ABT_PLUGIN_DIR . 'admin/pages/class-abt-references-page.php';
+			require_once ABT_PLUGIN_DIR . 'admin/pages/class-abt-statistics-page.php';
+			require_once ABT_PLUGIN_DIR . 'admin/pages/class-abt-settings-page.php';
+			require_once ABT_PLUGIN_DIR . 'admin/pages/class-abt-import-page.php';
+		}
+
 		$this->loader = new ABT_Loader();
 	}
 
@@ -153,8 +163,39 @@ class ABT_Core {
 	private function define_admin_hooks() {
 		$plugin_admin = new ABT_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		// Enqueue scripts and styles
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		
+		// Add admin menu - THIS WAS MISSING
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+		
+		// Add meta boxes
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_meta_boxes' );
+		
+		// Save meta box data
+		$this->loader->add_action( 'save_post', $plugin_admin, 'save_meta_boxes' );
+		
+		// Add custom columns
+		$this->loader->add_filter( 'manage_abt_blog_posts_columns', $plugin_admin, 'add_blog_columns' );
+		$this->loader->add_action( 'manage_abt_blog_posts_custom_column', $plugin_admin, 'display_blog_columns', 10, 2 );
+		
+		$this->loader->add_filter( 'manage_abt_reference_posts_columns', $plugin_admin, 'add_reference_columns' );
+		$this->loader->add_action( 'manage_abt_reference_posts_custom_column', $plugin_admin, 'display_reference_columns', 10, 2 );
+		
+		// Make columns sortable
+		$this->loader->add_filter( 'manage_edit-abt_blog_sortable_columns', $plugin_admin, 'make_columns_sortable' );
+		$this->loader->add_filter( 'manage_edit-abt_reference_sortable_columns', $plugin_admin, 'make_columns_sortable' );
+		
+		// Handle column sorting
+		$this->loader->add_action( 'pre_get_posts', $plugin_admin, 'handle_column_sorting' );
+		
+		// Add admin notices
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'add_admin_notices' );
+		
+		// Add taxonomy filters
+		$this->loader->add_action( 'restrict_manage_posts', $plugin_admin, 'add_taxonomy_filters' );
+		$this->loader->add_action( 'pre_get_posts', $plugin_admin, 'handle_taxonomy_filtering' );
 	}
 
 	/**

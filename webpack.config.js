@@ -1,187 +1,264 @@
+/**
+ * Webpack Configuration for Academic Blogger's Toolkit
+ * 
+ * Builds and processes JavaScript and CSS assets for both admin and frontend
+ * 
+ * @package Academic_Bloggers_Toolkit
+ * @since 1.0.0
+ */
+
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = (env, argv) => {
-    const isProduction = argv.mode === 'production';
+// Environment check
+const isProduction = process.env.NODE_ENV === 'production';
+
+module.exports = {
+  mode: isProduction ? 'production' : 'development',
+  
+  // Entry points for all JavaScript and CSS files
+  entry: {
+    // Admin JavaScript
+    'admin/admin-main': './admin/js/src/admin-main.js',
+    'admin/enhanced-admin': './admin/js/src/enhanced-admin.js',
+    'admin/meta-box': './admin/js/src/meta-box.js',
+    'admin/bulk-operations': './admin/js/src/bulk-operations.js',
+    'admin/citation-editor': './admin/js/src/citation-editor.js',
+    'admin/reference-manager': './admin/js/src/reference-manager.js',
     
-    return {
-        entry: {
-            // Admin JavaScript files
-            'admin/js/dist/admin-main': './admin/js/src/admin-main.js',
-            'admin/js/dist/meta-box': './admin/js/src/meta-box.js',
-            'admin/js/dist/reference-manager': './admin/js/src/reference-manager.js',
-            'admin/js/dist/citation-editor': './admin/js/src/citation-editor.js',
-            'admin/js/dist/bulk-operations': './admin/js/src/bulk-operations.js',
-            
-            // Public JavaScript files
-            'public/js/dist/frontend-main': './public/js/src/frontend-main.js',
-            'public/js/dist/citation-tooltips': './public/js/src/citation-tooltips.js',
-            'public/js/dist/footnote-handler': './public/js/src/footnote-handler.js',
-            'public/js/dist/search-widget': './public/js/src/search-widget.js',
-            'public/js/dist/reading-progress': './public/js/src/reading-progress.js',
-            
-            // CSS files
-            'admin/css/dist/admin-main': './admin/css/src/admin-main.scss',
-            'admin/css/dist/meta-box': './admin/css/src/meta-box.scss',
-            'admin/css/dist/reference-list': './admin/css/src/reference-list.scss',
-            'admin/css/dist/components': './admin/css/src/components.scss',
-            
-            'public/css/dist/frontend-main': './public/css/src/frontend-main.scss',
-            'public/css/dist/academic-blog': './public/css/src/academic-blog.scss',
-            'public/css/dist/citations': './public/css/src/citations.scss',
-            'public/css/dist/bibliography': './public/css/src/bibliography.scss',
-            'public/css/dist/footnotes': './public/css/src/footnotes.scss',
-            'public/css/dist/tooltips': './public/css/src/tooltips.scss',
-            'public/css/dist/responsive': './public/css/src/responsive.scss'
-        },
-        
-        output: {
-            path: path.resolve(__dirname),
-            filename: '[name].js',
-            clean: false // Don't clean all files, only JS files
-        },
-        
-        module: {
-            rules: [
-                // JavaScript processing
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [
-                                [
-                                    '@babel/preset-env',
-                                    {
-                                        targets: {
-                                            browsers: ['extends @wordpress/browserslist-config']
-                                        },
-                                        modules: false
-                                    }
-                                ]
-                            ]
-                        }
-                    }
-                },
-                
-                // SCSS/CSS processing
-                {
-                    test: /\.scss$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: !isProduction,
-                                importLoaders: 1
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: !isProduction,
-                                sassOptions: {
-                                    outputStyle: isProduction ? 'compressed' : 'expanded',
-                                    precision: 6
-                                }
-                            }
-                        }
-                    ]
-                },
-                
-                // CSS processing
-                {
-                    test: /\.css$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: !isProduction
-                            }
-                        }
-                    ]
-                },
-                
-                // Asset processing
-                {
-                    test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf)$/,
-                    type: 'asset/resource',
-                    generator: {
-                        filename: 'assets/[name][ext]'
-                    }
+    // Frontend JavaScript
+    'public/frontend-main': './public/js/src/frontend-main.js',
+    'public/enhanced-frontend': './public/js/src/enhanced-frontend.js',
+    'public/citation-tooltips': './public/js/src/citation-tooltips.js',
+    'public/footnote-handler': './public/js/src/footnote-handler.js',
+    'public/reading-progress': './public/js/src/reading-progress.js',
+    'public/search-widget': './public/js/src/search-widget.js',
+    
+    // Admin CSS
+    'admin/admin-main-css': './admin/css/src/admin-main.scss',
+    'admin/meta-box-css': './admin/css/src/meta-box.scss',
+    'admin/reference-list-css': './admin/css/src/reference-list.scss',
+    'admin/components-css': './admin/css/src/components.scss',
+    
+    // Frontend CSS
+    'public/frontend-main-css': './public/css/src/frontend-main.scss',
+    'public/academic-blog-css': './public/css/src/academic-blog.scss',
+    'public/citations-css': './public/css/src/citations.scss',
+    'public/bibliography-css': './public/css/src/bibliography.scss',
+    'public/footnotes-css': './public/css/src/footnotes.scss',
+    'public/tooltips-css': './public/css/src/tooltips.scss',
+    'public/responsive-css': './public/css/src/responsive.scss'
+  },
+
+  // Output configuration
+  output: {
+    path: path.resolve(__dirname),
+    filename: '[name].js',
+    clean: false, // Don't clean dist folder to preserve other files
+    assetModuleFilename: 'assets/[name][ext]'
+  },
+
+  // Module rules for processing different file types
+  module: {
+    rules: [
+      // JavaScript processing with Babel
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                targets: {
+                  browsers: ['> 1%', 'last 2 versions', 'ie >= 11']
                 }
+              }]
+            ],
+            plugins: [
+              '@babel/plugin-transform-runtime'
             ]
-        },
-        
-        plugins: [
-            new MiniCssExtractPlugin({
-                filename: '[name].css',
-                chunkFilename: '[id].css'
-            })
-        ],
-        
-        resolve: {
-            extensions: ['.js', '.scss', '.css'],
-            alias: {
-                '@admin': path.resolve(__dirname, 'admin'),
-                '@public': path.resolve(__dirname, 'public'),
-                '@includes': path.resolve(__dirname, 'includes'),
-                '@assets': path.resolve(__dirname, 'assets')
-            }
-        },
-        
-        externals: {
-            jquery: 'jQuery',
-            wp: 'wp'
-        },
-        
-        optimization: {
-            splitChunks: {
-                cacheGroups: {
-                    // Admin common chunks
-                    adminVendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'admin/js/dist/vendor',
-                        chunks: chunk => chunk.name && chunk.name.includes('admin/js/dist/'),
-                        enforce: true
-                    },
-                    
-                    // Public common chunks
-                    publicVendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'public/js/dist/vendor',
-                        chunks: chunk => chunk.name && chunk.name.includes('public/js/dist/'),
-                        enforce: true
-                    }
-                }
-            }
-        },
-        
-        devtool: isProduction ? false : 'source-map',
-        
-        performance: {
-            hints: isProduction ? 'warning' : false,
-            maxEntrypointSize: 500000,
-            maxAssetSize: 500000
-        },
-        
-        stats: {
-            colors: true,
-            modules: false,
-            chunks: false,
-            chunkModules: false
-        },
-        
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: 1000,
-            ignored: [
-                /node_modules/,
-                /tests/,
-                /vendor/
-            ]
+          }
         }
-    };
+      },
+
+      // SCSS/CSS processing
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              sourceMap: !isProduction
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  ['autoprefixer'],
+                  ...(isProduction ? [['cssnano', { preset: 'default' }]] : [])
+                ]
+              },
+              sourceMap: !isProduction
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: !isProduction,
+              sassOptions: {
+                outputStyle: isProduction ? 'compressed' : 'expanded',
+                includePaths: ['node_modules']
+              }
+            }
+          }
+        ]
+      },
+
+      // Font files
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name][ext]'
+        }
+      },
+
+      // Images
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/images/[name][ext]'
+        },
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024 // 8kb
+          }
+        }
+      }
+    ]
+  },
+
+  // Plugins
+  plugins: [
+    // Extract CSS into separate files
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    })
+  ],
+
+  // Optimization
+  optimization: {
+    minimize: isProduction,
+    minimizer: [
+      // JavaScript minification
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: isProduction,
+            drop_debugger: isProduction
+          },
+          format: {
+            comments: false
+          }
+        },
+        extractComments: false
+      }),
+      
+      // CSS minification
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              discardComments: { removeAll: true }
+            }
+          ]
+        }
+      })
+    ],
+
+    // Split chunks for better caching
+    splitChunks: {
+      cacheGroups: {
+        // Vendor libraries
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          enforce: true
+        },
+        
+        // Admin common code
+        adminCommon: {
+          test: /admin[\\/]js[\\/]src/,
+          name: 'admin/common',
+          chunks: 'all',
+          minChunks: 2,
+          enforce: true
+        },
+        
+        // Frontend common code
+        frontendCommon: {
+          test: /public[\\/]js[\\/]src/,
+          name: 'public/common',
+          chunks: 'all',
+          minChunks: 2,
+          enforce: true
+        }
+      }
+    }
+  },
+
+  // Development server configuration (for development)
+  devtool: isProduction ? false : 'source-map',
+
+  // External dependencies (don't bundle these)
+  externals: {
+    'jquery': 'jQuery',
+    'wp': 'wp'
+  },
+
+  // Resolve configuration
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss', '.css'],
+    alias: {
+      '@admin': path.resolve(__dirname, 'admin/js/src'),
+      '@public': path.resolve(__dirname, 'public/js/src'),
+      '@styles': path.resolve(__dirname, 'admin/css/src'),
+      '@frontend-styles': path.resolve(__dirname, 'public/css/src')
+    }
+  },
+
+  // Performance hints
+  performance: {
+    hints: isProduction ? 'warning' : false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  },
+
+  // Stats configuration
+  stats: {
+    colors: true,
+    modules: false,
+    children: false,
+    chunks: false,
+    chunkModules: false
+  }
 };
+
+/**
+ * Export different configurations for different environments
+ */
+if (process.env.WEBPACK_BUNDLE_ANALYZER) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  module.exports.plugins.push(new BundleAnalyzerPlugin());
+}

@@ -1,0 +1,910 @@
+/**
+ * Academic Blogger's Toolkit - Admin Styles
+ * 
+ * Main stylesheet for admin interface including meta boxes,
+ * references management, and admin pages.
+ * 
+ * @package Academic_Bloggers_Toolkit
+ * @since 1.0.0
+ */
+
+// Variables
+:root {
+  --abt-primary: #0073aa;
+  --abt-primary-hover: #005a87;
+  --abt-secondary: #666;
+  --abt-success: #46b450;
+  --abt-warning: #ffb900;
+  --abt-error: #dc3232;
+  --abt-border: #ddd;
+  --abt-bg-light: #f9f9f9;
+  --abt-bg-white: #fff;
+  --abt-text-dark: #23282d;
+  --abt-text-light: #666;
+  --abt-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --abt-radius: 3px;
+  --abt-spacing: 15px;
+}
+
+// Mixins
+@mixin abt-button-style($bg-color, $hover-color) {
+  background-color: $bg-color;
+  border-color: $bg-color;
+  color: #fff;
+  
+  &:hover,
+  &:focus {
+    background-color: $hover-color;
+    border-color: $hover-color;
+    color: #fff;
+  }
+}
+
+@mixin abt-box-shadow {
+  box-shadow: var(--abt-shadow);
+}
+
+@mixin abt-loading {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #ccc;
+    border-top-color: var(--abt-primary);
+    border-radius: 50%;
+    animation: abt-spin 1s linear infinite;
+  }
+}
+
+@keyframes abt-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Base Admin Styles
+.abt-admin-page {
+  .wrap {
+    margin-top: 20px;
+  }
+  
+  .page-title-action {
+    @include abt-button-style(var(--abt-primary), var(--abt-primary-hover));
+  }
+}
+
+// Loading States
+.abt-loading {
+  @include abt-loading;
+}
+
+.abt-loader {
+  display: inline-block;
+  animation: abt-spin 1s linear infinite;
+}
+
+// Notices
+.abt-notice {
+  margin: 15px 0;
+  
+  &.notice-info {
+    border-left-color: var(--abt-primary);
+  }
+  
+  &.notice-success {
+    border-left-color: var(--abt-success);
+  }
+  
+  &.notice-warning {
+    border-left-color: var(--abt-warning);
+  }
+  
+  &.notice-error {
+    border-left-color: var(--abt-error);
+  }
+}
+
+// Meta Boxes
+.abt-citations-manager,
+.abt-academic-settings,
+.abt-bibliography-preview,
+.abt-footnotes-manager {
+  padding: var(--abt-spacing);
+  
+  .abt-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--abt-spacing);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--abt-border);
+    
+    .button {
+      margin-right: 10px;
+      
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  
+  .abt-info {
+    font-size: 12px;
+    color: var(--abt-text-light);
+    font-style: italic;
+  }
+}
+
+// Citations Manager
+.abt-citations-manager {
+  .abt-citations-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--abt-border);
+      vertical-align: top;
+    }
+    
+    th {
+      background-color: var(--abt-bg-light);
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+    
+    .abt-citation-handle {
+      cursor: move;
+      color: var(--abt-text-light);
+      
+      &:hover {
+        color: var(--abt-primary);
+      }
+    }
+    
+    .abt-reference-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .abt-reference-meta {
+      font-size: 13px;
+      color: var(--abt-text-light);
+    }
+    
+    .row-actions {
+      margin-top: 6px;
+      
+      a {
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  .abt-no-citations {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--abt-bg-light);
+    border: 2px dashed var(--abt-border);
+    border-radius: var(--abt-radius);
+    color: var(--abt-text-light);
+  }
+  
+  .abt-sort-placeholder {
+    background-color: #ffffcc !important;
+    border: 2px dashed var(--abt-primary);
+  }
+}
+
+// Bibliography Preview
+.abt-bibliography-preview {
+  .abt-bibliography-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--abt-spacing);
+    
+    h4 {
+      margin: 0;
+      
+      .abt-style-indicator {
+        font-size: 12px;
+        color: var(--abt-text-light);
+        font-weight: normal;
+      }
+    }
+  }
+  
+  .abt-bibliography-list {
+    margin: 0;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+  }
+  
+  .abt-bibliography-actions {
+    margin-top: var(--abt-spacing);
+    padding-top: 10px;
+    border-top: 1px solid var(--abt-border);
+    
+    .button {
+      margin-right: 10px;
+    }
+  }
+  
+  .abt-no-bibliography {
+    text-align: center;
+    padding: 30px 20px;
+    background: var(--abt-bg-light);
+    border: 2px dashed var(--abt-border);
+    border-radius: var(--abt-radius);
+    color: var(--abt-text-light);
+  }
+}
+
+// Footnotes Manager
+.abt-footnotes-manager {
+  .abt-footnotes-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th,
+    td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--abt-border);
+    }
+    
+    th {
+      background-color: var(--abt-bg-light);
+      font-weight: 600;
+    }
+    
+    .abt-footnote-number {
+      font-weight: bold;
+      color: var(--abt-primary);
+      min-width: 30px;
+      display: inline-block;
+    }
+    
+    .abt-footnote-content {
+      max-width: 300px;
+      
+      .abt-content-preview {
+        display: block;
+        color: var(--abt-text-light);
+        font-style: italic;
+      }
+    }
+  }
+  
+  .abt-no-footnotes {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--abt-bg-light);
+    border: 2px dashed var(--abt-border);
+    border-radius: var(--abt-radius);
+    color: var(--abt-text-light);
+  }
+}
+
+// Modal Styles
+.abt-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .abt-modal-content {
+    background: var(--abt-bg-white);
+    border-radius: var(--abt-radius);
+    @include abt-box-shadow;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    
+    &.abt-modal-small {
+      width: 400px;
+    }
+    
+    &.abt-modal-medium {
+      width: 600px;
+    }
+    
+    &.abt-modal-large {
+      width: 800px;
+    }
+  }
+  
+  .abt-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--abt-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .abt-modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--abt-text-light);
+      padding: 0;
+      
+      &:hover {
+        color: var(--abt-text-dark);
+      }
+    }
+  }
+  
+  .abt-modal-body {
+    padding: 20px;
+  }
+  
+  .abt-modal-footer {
+    padding: 20px;
+    border-top: 1px solid var(--abt-border);
+    text-align: right;
+    
+    .button {
+      margin-left: 10px;
+    }
+  }
+}
+
+// Form Styles
+.abt-form-table {
+  width: 100%;
+  
+  th {
+    width: 150px;
+    text-align: left;
+    vertical-align: top;
+    padding-top: 12px;
+    
+    label {
+      font-weight: 600;
+    }
+  }
+  
+  td {
+    padding: 8px 0;
+    
+    .description {
+      font-size: 13px;
+      color: var(--abt-text-light);
+      font-style: italic;
+      margin-top: 4px;
+    }
+  }
+  
+  .abt-field-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    
+    input,
+    select {
+      flex: 1;
+    }
+  }
+}
+
+.abt-form-actions {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid var(--abt-border);
+  text-align: right;
+  
+  .button {
+    margin-left: 10px;
+  }
+}
+
+// Reference Search
+.abt-reference-search {
+  position: relative;
+  
+  .abt-search-input {
+    width: 100%;
+    padding-right: 30px;
+  }
+  
+  .abt-search-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--abt-text-light);
+  }
+}
+
+.abt-reference-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--abt-bg-white);
+  border: 1px solid var(--abt-border);
+  border-top: none;
+  border-radius: 0 0 var(--abt-radius) var(--abt-radius);
+  @include abt-box-shadow;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  
+  .abt-reference-result {
+    padding: 12px;
+    border-bottom: 1px solid var(--abt-border);
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--abt-bg-light);
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .abt-ref-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .abt-ref-meta {
+      font-size: 13px;
+      color: var(--abt-text-light);
+    }
+  }
+  
+  .abt-no-results {
+    padding: 20px;
+    text-align: center;
+    color: var(--abt-text-light);
+    font-style: italic;
+  }
+}
+
+// References Page
+.abt-references-page {
+  .abt-references-filters {
+    background: var(--abt-bg-white);
+    border: 1px solid var(--abt-border);
+    border-radius: var(--abt-radius);
+    padding: var(--abt-spacing);
+    margin-bottom: 20px;
+    @include abt-box-shadow;
+    
+    .abt-search-form {
+      display: flex;
+      gap: var(--abt-spacing);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .abt-search-box {
+      display: flex;
+      gap: 5px;
+      
+      .abt-search-input {
+        width: 300px;
+      }
+    }
+    
+    .abt-filter-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      
+      select {
+        min-width: 120px;
+      }
+    }
+  }
+  
+  .abt-references-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--abt-spacing);
+    padding: 10px 0;
+    
+    .abt-bulk-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+    
+    .abt-references-stats {
+      font-style: italic;
+      color: var(--abt-text-light);
+    }
+    
+    .abt-import-export-actions {
+      display: flex;
+      gap: 10px;
+    }
+  }
+  
+  .abt-references-table {
+    .column-cb {
+      width: 2.2em;
+    }
+    
+    .column-type {
+      width: 100px;
+    }
+    
+    .column-year {
+      width: 80px;
+    }
+    
+    .column-used {
+      width: 60px;
+      text-align: center;
+    }
+    
+    .column-date {
+      width: 120px;
+    }
+    
+    .abt-reference-type {
+      background: var(--abt-primary);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: var(--abt-radius);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    
+    .abt-usage-count {
+      font-weight: bold;
+      
+      &.unused {
+        color: var(--abt-text-light);
+      }
+      
+      &.used {
+        color: var(--abt-success);
+      }
+    }
+    
+    .abt-sort-indicator {
+      color: var(--abt-text-light);
+      margin-left: 4px;
+    }
+  }
+  
+  .abt-no-references {
+    text-align: center;
+    background: var(--abt-bg-white);
+    border: 1px solid var(--abt-border);
+    border-radius: var(--abt-radius);
+    padding: 60px 20px;
+    @include abt-box-shadow;
+    
+    h3 {
+      color: var(--abt-text-light);
+      margin-bottom: 10px;
+    }
+    
+    .abt-quick-import {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--abt-border);
+      
+      h4 {
+        margin-bottom: 15px;
+      }
+      
+      .button {
+        margin: 0 5px;
+      }
+    }
+  }
+  
+  .abt-pagination {
+    text-align: center;
+    margin-top: 30px;
+    
+    .page-numbers {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 0 2px;
+      text-decoration: none;
+      border: 1px solid var(--abt-border);
+      border-radius: var(--abt-radius);
+      
+      &.current {
+        background: var(--abt-primary);
+        color: #fff;
+        border-color: var(--abt-primary);
+      }
+      
+      &:hover {
+        background: var(--abt-bg-light);
+      }
+    }
+  }
+}
+
+// Import/Export Styles
+.abt-import-options {
+  .abt-import-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    
+    .button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px;
+      height: auto;
+      text-align: center;
+      
+      .dashicons {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.abt-preview-content {
+  .abt-preview-metadata {
+    background: var(--abt-bg-light);
+    padding: 15px;
+    border-radius: var(--abt-radius);
+    margin: 15px 0;
+    
+    .abt-meta-item {
+      margin-bottom: 8px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      strong {
+        display: inline-block;
+        min-width: 80px;
+        color: var(--abt-text-dark);
+      }
+    }
+  }
+  
+  .abt-preview-citations {
+    margin-top: 20px;
+    
+    h5 {
+      margin-bottom: 10px;
+      color: var(--abt-text-dark);
+    }
+    
+    .abt-citation-preview {
+      background: var(--abt-bg-light);
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: var(--abt-radius);
+      font-family: Georgia, serif;
+      line-height: 1.6;
+      
+      strong {
+        color: var(--abt-primary);
+        margin-right: 8px;
+      }
+    }
+  }
+  
+  .abt-preview-usage {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--abt-border);
+    color: var(--abt-text-light);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .abt-references-filters {
+    .abt-search-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .abt-search-box,
+    .abt-filter-box {
+      justify-content: stretch;
+      
+      input,
+      select {
+        flex: 1;
+      }
+    }
+  }
+  
+  .abt-references-toolbar {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+    
+    .abt-bulk-actions,
+    .abt-import-export-actions {
+      justify-content: center;
+    }
+  }
+  
+  .abt-citations-table,
+  .abt-footnotes-table {
+    font-size: 14px;
+    
+    th,
+    td {
+      padding: 8px;
+    }
+  }
+  
+  .abt-modal-content {
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+    
+    .abt-modal-header,
+    .abt-modal-body,
+    .abt-modal-footer {
+      padding: 15px;
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  .abt-bibliography-preview {
+    .abt-bibliography-header,
+    .abt-bibliography-actions {
+      display: none;
+    }
+    
+    .abt-bibliography-list {
+      li {
+        page-break-inside: avoid;
+      }
+    }
+  }
+}
+
+// Dark Mode Support (for future compatibility)
+@media (prefers-color-scheme: dark) {
+  :root {
+    --abt-text-dark: #f1f1f1;
+    --abt-text-light: #ccc;
+    --abt-bg-white: #2c3338;
+    --abt-bg-light: #23282d;
+    --abt-border: #555;
+  }
+}
+
+// Accessibility Improvements
+.abt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Focus States
+.abt-citations-table,
+.abt-footnotes-table {
+  tr:focus-within {
+    background-color: rgba(0, 115, 170, 0.1);
+    outline: 2px solid var(--abt-primary);
+    outline-offset: -2px;
+  }
+}
+
+.abt-reference-result:focus {
+  background-color: rgba(0, 115, 170, 0.1);
+  outline: 2px solid var(--abt-primary);
+  outline-offset: -2px;
+}
+
+// Animation Classes
+.abt-fade-in {
+  animation: abt-fade-in 0.3s ease-in-out;
+}
+
+.abt-slide-in {
+  animation: abt-slide-in 0.3s ease-in-out;
+}
+
+@keyframes abt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes abt-slide-in {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Utility Classes
+.abt-text-center {
+  text-align: center;
+}
+
+.abt-text-right {
+  text-align: right;
+}
+
+.abt-margin-bottom {
+  margin-bottom: var(--abt-spacing);
+}
+
+.abt-padding {
+  padding: var(--abt-spacing);
+}
+
+.abt-border-top {
+  border-top: 1px solid var(--abt-border);
+}
+
+.abt-border-bottom {
+  border-bottom: 1px solid var(--abt-border);
+}
+
+.abt-hidden {
+  display: none;
+}
+
+.abt-visible {
+  display: block;
+}

@@ -2,7 +2,7 @@
 /**
  * Enhanced Admin Class with Fixed Menu and Settings
  *
- * @link       https://github.com/academic-bloggers-toolkit
+ * @link       https://github.com/wbcomdesigns
  * @since      1.0.0
  *
  * @package    Academic_Bloggers_Toolkit
@@ -671,9 +671,9 @@ class ABT_Admin {
 				<h3><?php _e( 'Support', 'academic-bloggers-toolkit' ); ?></h3>
 				<p><?php _e( 'For additional help and support:', 'academic-bloggers-toolkit' ); ?></p>
 				<ul>
-					<li><a href="https://academic-bloggers-toolkit.com/docs/" target="_blank"><?php _e( 'Documentation', 'academic-bloggers-toolkit' ); ?></a></li>
-					<li><a href="https://academic-bloggers-toolkit.com/support/" target="_blank"><?php _e( 'Support Forum', 'academic-bloggers-toolkit' ); ?></a></li>
-					<li><a href="https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit" target="_blank"><?php _e( 'GitHub Repository', 'academic-bloggers-toolkit' ); ?></a></li>
+					<li><a href="https://wbcomdesigns.com/docs/" target="_blank"><?php _e( 'Documentation', 'academic-bloggers-toolkit' ); ?></a></li>
+					<li><a href="https://wbcomdesigns.com/support/" target="_blank"><?php _e( 'Support Forum', 'academic-bloggers-toolkit' ); ?></a></li>
+					<li><a href="https://github.com/wbcomdesigns/academic-bloggers-toolkit" target="_blank"><?php _e( 'GitHub Repository', 'academic-bloggers-toolkit' ); ?></a></li>
 				</ul>
 			</div>
 		</div>

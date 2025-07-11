@@ -36,7 +36,7 @@ A complete academic citation management system for WordPress. Create academic bl
 ## 📦 Installation
 
 ### From WordPress Admin
-1. Download the latest release from [GitHub Releases](https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/wbcomdesigns/academic-bloggers-toolkit/releases)
 2. Go to **Plugins > Add New > Upload Plugin**
 3. Choose the downloaded ZIP file and click **Install Now**
 4. Activate the plugin
@@ -116,7 +116,7 @@ This is an important point[abt_footnote]Additional explanation here[/abt_footnot
 ### Setup Development Environment
 ```bash
 # Clone the repository
-git clone https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit.git
+git clone https://github.com/wbcomdesigns/academic-bloggers-toolkit.git
 cd academic-bloggers-toolkit
 
 # Install PHP dependencies
@@ -238,7 +238,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 7. Open a Pull Request
 
 ### Reporting Issues
-- Use the [GitHub Issues](https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit/issues) page
+- Use the [GitHub Issues](https://github.com/wbcomdesigns/academic-bloggers-toolkit/issues) page
 - Include WordPress version, PHP version, and plugin version
 - Provide steps to reproduce the issue
 - Include relevant error messages or screenshots
@@ -256,8 +256,8 @@ This project is licensed under the GPL-2.0-or-later License - see the [LICENSE](
 
 ## 📞 Support
 
-- **Documentation**: [https://academic-bloggers-toolkit.com/docs/](https://academic-bloggers-toolkit.com/docs/)
-- **Support Forum**: [https://academic-bloggers-toolkit.com/support/](https://academic-bloggers-toolkit.com/support/)
+- **Documentation**: [https://wbcomdesigns.com/docs/](https://wbcomdesigns.com/docs/)
+- **Support Forum**: [https://wbcomdesigns.com/support/](https://wbcomdesigns.com/support/)
 - **Email**: support@academic-bloggers-toolkit.com
 
 ## 🗺️ Roadmap

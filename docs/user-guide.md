@@ -810,4 +810,4 @@ Google Scholar integration: Enable/Disable
 
 ---
 
-*For the latest updates and advanced features, visit the [plugin website](https://academic-bloggers-toolkit.com) or check the [GitHub repository](https://github.com/academic-bloggers-toolkit/plugin).*
+*For the latest updates and advanced features, visit the [plugin website](https://wbcomdesigns.com) or check the [GitHub repository](https://github.com/wbcomdesigns/plugin).*

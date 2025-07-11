@@ -2,7 +2,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://academic-bloggers-toolkit.com
+ * @link       https://wbcomdesigns.com
  * @since      1.0.0
  *
  * @package    Academic_Bloggers_Toolkit

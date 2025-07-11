@@ -5,7 +5,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://academic-bloggers-toolkit.com
+ * @link       https://wbcomdesigns.com
  * @since      1.0.0
  *
  * @package    Academic_Bloggers_Toolkit

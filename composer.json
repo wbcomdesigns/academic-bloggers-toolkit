@@ -16,20 +16,20 @@
         "bibtex",
         "ris"
     ],
-    "homepage": "https://academic-bloggers-toolkit.com",
+    "homepage": "https://wbcomdesigns.com",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Academic Blogger's Toolkit Team",
             "email": "team@academic-bloggers-toolkit.com",
-            "homepage": "https://academic-bloggers-toolkit.com",
+            "homepage": "https://wbcomdesigns.com",
             "role": "Developer"
         }
     ],
     "support": {
-        "issues": "https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit/issues",
-        "source": "https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit",
-        "docs": "https://academic-bloggers-toolkit.com/docs/"
+        "issues": "https://github.com/wbcomdesigns/academic-bloggers-toolkit/issues",
+        "source": "https://github.com/wbcomdesigns/academic-bloggers-toolkit",
+        "docs": "https://wbcomdesigns.com/docs/"
     },
     "require": {
         "php": ">=8.0",

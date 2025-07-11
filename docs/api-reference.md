@@ -1066,4 +1066,4 @@ add_filter( 'abt_rate_limits', function( $limits ) {
 
 ---
 
-*For additional API documentation and examples, visit the [plugin documentation site](https://academic-bloggers-toolkit.com/docs) or the [GitHub repository](https://github.com/academic-bloggers-toolkit/plugin).*
+*For additional API documentation and examples, visit the [plugin documentation site](https://wbcomdesigns.com/docs) or the [GitHub repository](https://github.com/wbcomdesigns/plugin).*

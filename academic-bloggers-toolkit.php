@@ -2,17 +2,17 @@
 /**
  * Academic Blogger's Toolkit
  *
- * @link              https://academic-bloggers-toolkit.com
+ * @link              https://wbcomdesigns.com
  * @since             1.0.0
  * @package           Academic_Bloggers_Toolkit
  *
  * @wordpress-plugin
  * Plugin Name:       Academic Blogger's Toolkit
- * Plugin URI:        https://academic-bloggers-toolkit.com
+ * Plugin URI:        https://wbcomdesigns.com
  * Description:       Complete academic citation management system for WordPress. Create academic blog posts with proper citations, footnotes, and bibliographies. Features auto-cite from DOI, PMID, ISBN, and URL sources.
  * Version:           1.0.0
  * Author:            Academic Blogger's Toolkit Team
- * Author URI:        https://academic-bloggers-toolkit.com
+ * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       academic-bloggers-toolkit
@@ -205,8 +205,8 @@ add_filter( 'plugin_action_links_' . ABT_PLUGIN_BASENAME, 'abt_plugin_action_lin
  */
 function abt_plugin_meta_links( $meta_links, $plugin_file ) {
 	if ( ABT_PLUGIN_BASENAME === $plugin_file ) {
-		$meta_links[] = '<a href="https://academic-bloggers-toolkit.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'academic-bloggers-toolkit' ) . '</a>';
-		$meta_links[] = '<a href="https://academic-bloggers-toolkit.com/support/" target="_blank">' . esc_html__( 'Support', 'academic-bloggers-toolkit' ) . '</a>';
+		$meta_links[] = '<a href="https://wbcomdesigns.com/docs/" target="_blank">' . esc_html__( 'Documentation', 'academic-bloggers-toolkit' ) . '</a>';
+		$meta_links[] = '<a href="https://wbcomdesigns.com/support/" target="_blank">' . esc_html__( 'Support', 'academic-bloggers-toolkit' ) . '</a>';
 	}
 	
 	return $meta_links;

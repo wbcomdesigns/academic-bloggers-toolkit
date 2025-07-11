@@ -142,4 +142,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-**Full Changelog**: https://github.com/academic-bloggers-toolkit/academic-bloggers-toolkit/compare/v0.9.0...v1.0.0
+**Full Changelog**: https://github.com/wbcomdesigns/academic-bloggers-toolkit/compare/v0.9.0...v1.0.0

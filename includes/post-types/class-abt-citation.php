@@ -4,7 +4,7 @@
  *
  * Handles individual citation instances that connect references to blog posts.
  *
- * @link       https://academic-bloggers-toolkit.com
+ * @link       https://wbcomdesigns.com
  * @since      1.0.0
  *
  * @package    Academic_Bloggers_Toolkit

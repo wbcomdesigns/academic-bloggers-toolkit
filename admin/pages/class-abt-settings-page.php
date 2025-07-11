@@ -2,7 +2,7 @@
 /**
  * Settings page functionality.
  *
- * @link       https://github.com/academic-bloggers-toolkit
+ * @link       https://github.com/wbcomdesigns
  * @since      1.0.0
  *
  * @package    Academic_Bloggers_Toolkit

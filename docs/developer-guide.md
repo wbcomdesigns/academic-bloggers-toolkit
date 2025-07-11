@@ -1554,7 +1554,7 @@ class Test_Performance extends WP_UnitTestCase {
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/academic-bloggers-toolkit/plugin.git
+   git clone https://github.com/wbcomdesigns/plugin.git
    cd plugin
    ```
 
@@ -1633,4 +1633,4 @@ class Test_Performance extends WP_UnitTestCase {
 
 ---
 
-For more information about contributing to the Academic Blogger's Toolkit, visit our [GitHub repository](https://github.com/academic-bloggers-toolkit/plugin) or contact the development team.
+For more information about contributing to the Academic Blogger's Toolkit, visit our [GitHub repository](https://github.com/wbcomdesigns/plugin) or contact the development team.

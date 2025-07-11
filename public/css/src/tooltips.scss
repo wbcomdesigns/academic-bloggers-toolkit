@@ -1,0 +1,546 @@
+/**
+ * Tooltips Styles for Academic Blogger's Toolkit
+ * 
+ * Universal tooltip system for citations, footnotes, and interactive elements
+ * 
+ * @package Academic_Bloggers_Toolkit
+ * @since 1.0.0
+ */
+
+// Variables
+$tooltip-dark-bg: #1f2937;
+$tooltip-dark-text: #ffffff;
+$tooltip-light-bg: #ffffff;
+$tooltip-light-text: #374151;
+$tooltip-border: #e5e7eb;
+$tooltip-shadow: rgba(0, 0, 0, 0.25);
+$tooltip-shadow-light: rgba(0, 0, 0, 0.15);
+
+// Mixins
+@mixin tooltip-transition($property: all, $duration: 0.2s) {
+  transition: $property $duration ease-in-out;
+}
+
+@mixin tooltip-arrow($direction, $color, $size: 6px) {
+  content: '';
+  position: absolute;
+  border: $size solid transparent;
+  
+  @if $direction == 'top' {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: $color;
+  } @else if $direction == 'bottom' {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: $color;
+  } @else if $direction == 'left' {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: $color;
+  } @else if $direction == 'right' {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: $color;
+  }
+}
+
+// Base tooltip styles
+.abt-tooltip {
+  position: absolute;
+  z-index: 1000;
+  max-width: 300px;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  opacity: 0;
+  visibility: hidden;
+  @include tooltip-transition(opacity, visibility);
+  word-wrap: break-word;
+  pointer-events: none;
+
+  &.abt-tooltip-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  // Dark theme (default)
+  &,
+  &.abt-tooltip-dark {
+    background: $tooltip-dark-bg;
+    color: $tooltip-dark-text;
+    box-shadow: 0 10px 25px $tooltip-shadow;
+
+    // Dark theme arrows
+    &.abt-tooltip-top::after {
+      @include tooltip-arrow('top', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-bottom::after {
+      @include tooltip-arrow('bottom', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-left::after {
+      @include tooltip-arrow('left', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-right::after {
+      @include tooltip-arrow('right', $tooltip-dark-bg);
+    }
+  }
+
+  // Light theme
+  &.abt-tooltip-light {
+    background: $tooltip-light-bg;
+    color: $tooltip-light-text;
+    border: 1px solid $tooltip-border;
+    box-shadow: 0 10px 25px $tooltip-shadow-light;
+
+    // Light theme arrows
+    &.abt-tooltip-top::after {
+      @include tooltip-arrow('top', $tooltip-light-bg);
+    }
+
+    &.abt-tooltip-bottom::after {
+      @include tooltip-arrow('bottom', $tooltip-light-bg);
+    }
+
+    &.abt-tooltip-left::after {
+      @include tooltip-arrow('left', $tooltip-light-bg);
+    }
+
+    &.abt-tooltip-right::after {
+      @include tooltip-arrow('right', $tooltip-light-bg);
+    }
+  }
+
+  // Tooltip sizes
+  &.abt-tooltip-sm {
+    max-width: 200px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  &.abt-tooltip-lg {
+    max-width: 400px;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  &.abt-tooltip-xl {
+    max-width: 500px;
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+}
+
+// Citation tooltips
+.abt-citation-tooltip {
+  &.abt-tooltip-light {
+    .abt-citation-preview {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid $tooltip-border;
+      font-style: italic;
+      color: #6b7280;
+    }
+
+    .abt-citation-details {
+      .abt-detail-row {
+        display: flex;
+        margin-bottom: 0.5rem;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .abt-detail-label {
+          font-weight: 600;
+          min-width: 80px;
+          color: $tooltip-light-text;
+          font-size: 0.75rem;
+        }
+        
+        .abt-detail-value {
+          flex: 1;
+          color: #6b7280;
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .abt-citation-actions {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid $tooltip-border;
+      display: flex;
+      gap: 0.5rem;
+
+      .abt-tooltip-action {
+        padding: 0.25rem 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        background: #f9fafb;
+        color: $tooltip-light-text;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        @include tooltip-transition();
+
+        &:hover {
+          background: #f3f4f6;
+          border-color: #9ca3af;
+        }
+
+        &.abt-copy-citation {
+          &:hover {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1d4ed8;
+          }
+        }
+
+        &.abt-view-reference {
+          &:hover {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #059669;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Footnote tooltips
+.abt-footnote-tooltip {
+  &.abt-tooltip-light {
+    .abt-footnote-number {
+      font-weight: 600;
+      color: #7c3aed;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .abt-footnote-text {
+      line-height: 1.5;
+    }
+
+    .abt-footnote-source {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid $tooltip-border;
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+  }
+}
+
+// Reference tooltips
+.abt-reference-tooltip {
+  &.abt-tooltip-light {
+    .abt-reference-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: $tooltip-light-text;
+    }
+
+    .abt-reference-authors {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    .abt-reference-journal {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    .abt-reference-year {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .abt-reference-abstract {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid $tooltip-border;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #6b7280;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+  }
+}
+
+// Tooltip loading states
+.abt-tooltip-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+
+  .abt-loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: abt-tooltip-spin 1s linear infinite;
+  }
+
+  .abt-loading-text {
+    color: inherit;
+    font-size: 0.875rem;
+  }
+}
+
+@keyframes abt-tooltip-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Tooltip error state
+.abt-tooltip-error {
+  color: #dc2626;
+  
+  .abt-error-icon {
+    display: inline-block;
+    margin-right: 0.5rem;
+    
+    &::before {
+      content: '⚠';
+    }
+  }
+
+  .abt-error-message {
+    font-size: 0.875rem;
+  }
+}
+
+// Tooltip with rich content
+.abt-tooltip-rich {
+  .abt-tooltip-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    &.abt-tooltip-light & {
+      border-bottom-color: $tooltip-border;
+    }
+
+    .abt-tooltip-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .abt-tooltip-subtitle {
+      margin: 0.25rem 0 0 0;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+  }
+
+  .abt-tooltip-body {
+    .abt-tooltip-section {
+      margin-bottom: 0.75rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .abt-section-title {
+        font-weight: 600;
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .abt-section-content {
+        font-size: 0.875rem;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .abt-tooltip-footer {
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.7rem;
+    opacity: 0.8;
+
+    &.abt-tooltip-light & {
+      border-top-color: $tooltip-border;
+    }
+  }
+}
+
+// Interactive tooltips
+.abt-tooltip-interactive {
+  pointer-events: auto;
+  cursor: default;
+
+  .abt-tooltip-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    @include tooltip-transition();
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Tooltip positioning classes
+.abt-tooltip-fixed {
+  position: fixed;
+}
+
+.abt-tooltip-constrained {
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .abt-tooltip {
+    max-width: 90vw;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+
+    &.abt-tooltip-lg,
+    &.abt-tooltip-xl {
+      max-width: 95vw;
+      padding: 0.75rem;
+    }
+  }
+
+  .abt-citation-tooltip {
+    .abt-citation-actions {
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .abt-tooltip-action {
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .abt-tooltip {
+    max-width: 95vw;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+
+    // Hide arrows on very small screens
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// Touch device optimizations
+@media (hover: none) and (pointer: coarse) {
+  .abt-tooltip {
+    // Larger touch targets for mobile
+    .abt-tooltip-action {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    // Prevent hover states on touch devices
+    &:hover {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .abt-tooltip {
+    &.abt-tooltip-light {
+      border-width: 2px;
+      border-color: #000;
+    }
+
+    &.abt-tooltip-dark {
+      background: #000;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+// Reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+  .abt-tooltip {
+    transition: none;
+    animation: none;
+
+    .abt-loading-spinner {
+      animation: none;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .abt-tooltip {
+    display: none !important;
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .abt-tooltip.abt-tooltip-auto {
+    background: $tooltip-dark-bg;
+    color: $tooltip-dark-text;
+    box-shadow: 0 10px 25px $tooltip-shadow;
+
+    &.abt-tooltip-top::after {
+      @include tooltip-arrow('top', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-bottom::after {
+      @include tooltip-arrow('bottom', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-left::after {
+      @include tooltip-arrow('left', $tooltip-dark-bg);
+    }
+
+    &.abt-tooltip-right::after {
+      @include tooltip-arrow('right', $tooltip-dark-bg);
+    }
+  }
+}

@@ -1,0 +1,930 @@
+/**
+ * Responsive Design for Academic Blogger's Toolkit
+ * 
+ * Mobile-first responsive design with breakpoints, print styles, and accessibility
+ * 
+ * @package Academic_Bloggers_Toolkit
+ * @since 1.0.0
+ */
+
+// Breakpoints
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// Responsive mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  }
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+}
+
+@mixin respond-above($breakpoint) {
+  @if $breakpoint == xs {
+    @media (min-width: $breakpoint-xs + 1) { @content; }
+  }
+  @if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm + 1) { @content; }
+  }
+  @if $breakpoint == md {
+    @media (min-width: $breakpoint-md + 1) { @content; }
+  }
+  @if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg + 1) { @content; }
+  }
+  @if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl + 1) { @content; }
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @media (min-width: $min + 1) and (max-width: $max) { @content; }
+}
+
+// Container responsive sizes
+.abt-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  @include respond-above(sm) {
+    max-width: 640px;
+    padding: 0 1.5rem;
+  }
+
+  @include respond-above(md) {
+    max-width: 768px;
+    padding: 0 2rem;
+  }
+
+  @include respond-above(lg) {
+    max-width: 1024px;
+  }
+
+  @include respond-above(xl) {
+    max-width: 1280px;
+  }
+
+  @media (min-width: $breakpoint-2xl) {
+    max-width: 1536px;
+  }
+}
+
+// Academic post responsive layout
+.abt-academic-post {
+  @include respond-to(xs) {
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  @include respond-to(sm) {
+    padding: 1.5rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  @include respond-to(md) {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+
+  @include respond-above(lg) {
+    padding: 3rem 2rem;
+    font-size: 1.05rem;
+    max-width: 900px;
+  }
+
+  @include respond-above(xl) {
+    max-width: 1000px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+}
+
+// Typography responsive scaling
+.abt-article-title {
+  @include respond-to(xs) {
+    font-size: 1.5rem !important;
+    line-height: 1.3;
+  }
+
+  @include respond-to(sm) {
+    font-size: 1.75rem !important;
+    line-height: 1.25;
+  }
+
+  @include respond-to(md) {
+    font-size: 2.25rem !important;
+  }
+
+  @include respond-above(lg) {
+    font-size: 2.75rem !important;
+  }
+
+  @include respond-above(xl) {
+    font-size: 3rem !important;
+  }
+}
+
+.abt-article-content {
+  h1, h2, h3, h4, h5, h6 {
+    @include respond-to(sm) {
+      margin: 1.5rem 0 0.75rem 0;
+    }
+  }
+
+  h1 { 
+    @include respond-to(sm) { font-size: 1.75rem; }
+    @include respond-to(md) { font-size: 2rem; }
+    @include respond-above(lg) { font-size: 2.25rem; }
+  }
+  
+  h2 { 
+    @include respond-to(sm) { font-size: 1.5rem; }
+    @include respond-to(md) { font-size: 1.75rem; }
+    @include respond-above(lg) { font-size: 1.875rem; }
+  }
+  
+  h3 { 
+    @include respond-to(sm) { font-size: 1.25rem; }
+    @include respond-above(lg) { font-size: 1.5rem; }
+  }
+
+  // Lists responsive spacing
+  ul, ol {
+    @include respond-to(sm) {
+      padding-left: 1.25rem;
+      margin: 0.75rem 0;
+    }
+
+    @include respond-above(md) {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+  }
+
+  // Blockquotes responsive
+  blockquote {
+    @include respond-to(sm) {
+      margin: 1rem 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    @include respond-above(md) {
+      margin: 1.5rem 0;
+      padding: 1rem 1.5rem;
+    }
+  }
+
+  // Tables responsive
+  table {
+    @include respond-to(sm) {
+      font-size: 0.75rem;
+      
+      th, td {
+        padding: 0.25rem 0.5rem;
+      }
+    }
+
+    @include respond-to(md) {
+      font-size: 0.8rem;
+      
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+
+    @include respond-above(lg) {
+      font-size: 0.875rem;
+    }
+  }
+
+  // Images responsive
+  img {
+    @include respond-to(sm) {
+      margin: 1rem 0;
+    }
+  }
+
+  figure {
+    @include respond-to(sm) {
+      margin: 1rem 0;
+
+      figcaption {
+        padding: 0 0.5rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Article meta responsive
+.abt-article-meta {
+  @include respond-to(md) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .abt-author-info {
+    @include respond-to(sm) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    @include respond-above(md) {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+    }
+  }
+}
+
+// Subjects responsive
+.abt-subjects {
+  @include respond-to(sm) {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .abt-subject-link {
+    @include respond-to(sm) {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}
+
+// Abstract responsive
+.abt-abstract {
+  @include respond-to(sm) {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+  }
+
+  @include respond-to(md) {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  @include respond-above(lg) {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+}
+
+// Bibliography responsive
+.abt-bibliography-section {
+  @include respond-to(sm) {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  @include respond-to(md) {
+    margin: 1.5rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .abt-bibliography-item {
+    @include respond-to(sm) {
+      padding: 0.75rem;
+      padding-left: 2rem;
+      font-size: 0.8rem;
+
+      &::before {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    @include respond-to(xs) {
+      padding: 0.5rem;
+      padding-left: 1.75rem;
+      font-size: 0.75rem;
+
+      &::before {
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 0.65rem;
+      }
+    }
+  }
+}
+
+// Footnotes responsive
+.abt-footnotes-section {
+  @include respond-to(md) {
+    margin: 2rem -1rem 1rem;
+    padding: 1rem;
+    border-radius: 0;
+  }
+
+  .abt-footnote-item {
+    @include respond-to(sm) {
+      padding: 0.5rem;
+      padding-left: 2rem;
+      font-size: 0.8rem;
+
+      &::before {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    @include respond-to(xs) {
+      padding: 0.375rem;
+      padding-left: 1.75rem;
+
+      &::before {
+        width: 1.25rem;
+        height: 1.25rem;
+        font-size: 0.65rem;
+      }
+    }
+  }
+}
+
+// Citations responsive
+.abt-citation {
+  @include respond-to(sm) {
+    font-size: 0.8em;
+    padding: 0 3px;
+  }
+}
+
+.abt-citation-tooltip {
+  @include respond-to(md) {
+    max-width: 95vw;
+    font-size: 0.8rem;
+  }
+
+  @include respond-to(sm) {
+    max-width: 90vw;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+}
+
+// Footnotes responsive (continued)
+.abt-footnote {
+  @include respond-to(sm) {
+    font-size: 0.7em;
+  }
+}
+
+// Sharing buttons responsive
+.abt-share-buttons {
+  @include respond-to(md) {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  @include respond-to(sm) {
+    justify-content: center;
+  }
+
+  .abt-share-button {
+    @include respond-to(sm) {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      min-width: 120px;
+      justify-content: center;
+    }
+  }
+}
+
+// Modal responsive
+.abt-citation-modal {
+  @include respond-to(md) {
+    padding: 1rem;
+  }
+
+  .abt-modal-content {
+    @include respond-to(md) {
+      width: 95%;
+      margin: 0;
+      max-height: 90vh;
+    }
+
+    @include respond-to(sm) {
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+  }
+}
+
+// Navigation responsive
+.abt-post-navigation {
+  @include respond-to(md) {
+    .nav-links {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-previous,
+    .nav-next {
+      text-align: center;
+    }
+  }
+}
+
+// Search widget responsive
+.abt-search-form {
+  @include respond-to(sm) {
+    .abt-search-wrapper {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .abt-search-field {
+      width: 100%;
+    }
+
+    .abt-search-submit {
+      width: 100%;
+      padding: 0.75rem;
+    }
+  }
+}
+
+.abt-advanced-search {
+  @include respond-to(md) {
+    .abt-filter-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .abt-filter-group {
+      width: 100%;
+    }
+  }
+}
+
+// Statistics responsive
+.abt-citation-stats {
+  @include respond-to(md) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .abt-stat-item {
+    @include respond-to(sm) {
+      min-width: auto;
+      padding: 1rem;
+    }
+  }
+}
+
+// Reference list responsive
+.abt-reference-list {
+  .abt-reference-item {
+    @include respond-to(md) {
+      .abt-reference-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .abt-reference-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Archive layout responsive
+.abt-posts-container {
+  &.abt-view-grid {
+    @include respond-to(lg) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(md) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.abt-archive-item {
+  @include respond-to(sm) {
+    .abt-item-actions {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+      gap: 0.75rem;
+    }
+  }
+}
+
+// Widgets responsive
+.abt-recent-posts-widget,
+.abt-popular-references-widget,
+.abt-citation-stats-widget {
+  @include respond-to(sm) {
+    .widget-content {
+      padding: 1rem;
+    }
+
+    .widget-title {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  // Hide interactive elements
+  .abt-reading-progress,
+  .abt-back-to-top,
+  .abt-share-buttons,
+  .abt-citation-modal,
+  .abt-tooltip,
+  .abt-search-form,
+  .abt-archive-controls,
+  .abt-pagination,
+  .abt-post-navigation {
+    display: none !important;
+  }
+
+  // Reset layout for print
+  .abt-academic-post {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  .abt-article-title {
+    font-size: 18pt !important;
+    page-break-after: avoid;
+    color: #000;
+  }
+
+  .abt-article-content {
+    h1, h2, h3, h4, h5, h6 {
+      page-break-after: avoid;
+      color: #000;
+    }
+
+    h1 { font-size: 16pt; }
+    h2 { font-size: 14pt; }
+    h3 { font-size: 13pt; }
+    h4 { font-size: 12pt; }
+    h5, h6 { font-size: 11pt; }
+  }
+
+  // Print-friendly elements
+  .abt-citation {
+    background: none !important;
+    color: #000 !important;
+    border: 1px solid #000;
+    padding: 1px 3px;
+  }
+
+  .abt-footnote {
+    color: #000 !important;
+  }
+
+  .abt-bibliography-section {
+    background: none !important;
+    border: 1px solid #000;
+    break-inside: avoid;
+    margin: 1rem 0;
+
+    .abt-bibliography-item {
+      background: none !important;
+      border: none !important;
+      break-inside: avoid;
+      color: #000;
+
+      &::before {
+        background: none !important;
+        color: #000 !important;
+        border: 1px solid #000;
+      }
+    }
+  }
+
+  .abt-footnotes-section {
+    border-top: 1px solid #000 !important;
+    break-inside: avoid;
+
+    .abt-footnote-item {
+      background: none !important;
+      border: none !important;
+      break-inside: avoid;
+
+      &::before {
+        background: none !important;
+        color: #000 !important;
+        border: 1px solid #000;
+      }
+    }
+  }
+
+  .abt-abstract {
+    background: none !important;
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+
+  // URLs for links
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+  }
+
+  // Page breaks
+  .abt-article-header {
+    page-break-after: avoid;
+  }
+
+  blockquote,
+  .abt-abstract,
+  .abt-bibliography-section,
+  .abt-footnotes-section {
+    page-break-inside: avoid;
+  }
+
+  // Table print optimization
+  table {
+    font-size: 9pt;
+    border-collapse: collapse;
+    width: 100%;
+
+    th, td {
+      border: 1px solid #000;
+      padding: 4pt;
+    }
+
+    th {
+      background: #f0f0f0 !important;
+      font-weight: bold;
+    }
+  }
+}
+
+// High Contrast Mode
+@media (prefers-contrast: high) {
+  .abt-citation {
+    border: 2px solid currentColor !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .abt-tooltip {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .abt-bibliography-section,
+  .abt-footnotes-section,
+  .abt-abstract {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .abt-button,
+  .abt-share-button {
+    border: 2px solid currentColor !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+// Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .abt-reading-progress-bar {
+    transition: none !important;
+  }
+
+  .abt-tooltip,
+  .abt-modal,
+  .abt-citation {
+    transition: none !important;
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .abt-academic-post {
+    background: #111827;
+    color: #f9fafb;
+  }
+
+  .abt-article-title {
+    color: #f9fafb;
+  }
+
+  .abt-article-meta {
+    background: #1f2937;
+    border-color: #374151;
+    color: #d1d5db;
+  }
+
+  .abt-abstract {
+    background: #1f2937;
+    border-left-color: #3b82f6;
+    color: #d1d5db;
+  }
+
+  .abt-bibliography-section {
+    background: #1f2937;
+    border-color: #374151;
+    color: #d1d5db;
+
+    .abt-bibliography-item {
+      background: #111827;
+      color: #d1d5db;
+
+      &:hover {
+        background: #374151;
+      }
+    }
+  }
+
+  .abt-footnotes-section {
+    border-top-color: #374151;
+    color: #d1d5db;
+
+    .abt-footnote-item {
+      background: #1f2937;
+      color: #d1d5db;
+
+      &:hover {
+        background: #374151;
+      }
+    }
+  }
+
+  .abt-citation {
+    background: #3b82f6;
+    color: #fff;
+  }
+
+  .abt-footnote {
+    color: #a78bfa;
+  }
+
+  .abt-tooltip.abt-tooltip-auto {
+    background: #1f2937;
+    color: #f9fafb;
+    border-color: #374151;
+  }
+}
+
+// Touch Device Optimizations
+@media (hover: none) and (pointer: coarse) {
+  // Larger touch targets
+  .abt-citation,
+  .abt-footnote {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .abt-share-button,
+  .abt-button {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+  }
+
+  // Remove hover states
+  .abt-citation:hover,
+  .abt-footnote:hover,
+  .abt-bibliography-item:hover,
+  .abt-footnote-item:hover {
+    background: inherit;
+    transform: none;
+  }
+
+  // Touch-friendly tooltips
+  .abt-tooltip {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+// Landscape Orientation
+@media (orientation: landscape) and (max-height: 500px) {
+  .abt-modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .abt-tooltip {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+// Large Desktop Optimizations
+@include respond-above(xl) {
+  .abt-academic-post {
+    .abt-article-content {
+      // Improved typography for large screens
+      p {
+        max-width: 75ch; // Optimal reading line length
+      }
+
+      blockquote {
+        margin-left: 2rem;
+        margin-right: 2rem;
+      }
+    }
+  }
+
+  // Multi-column layout for very wide screens
+  .abt-bibliography-section {
+    .abt-bibliography-list {
+      @media (min-width: $breakpoint-2xl) {
+        column-count: 2;
+        column-gap: 2rem;
+        column-rule: 1px solid #e2e8f0;
+
+        .abt-bibliography-item {
+          break-inside: avoid;
+        }
+      }
+    }
+  }
+}
+
+// Specific mobile breakpoints
+@media (max-width: 360px) {
+  .abt-academic-post {
+    padding: 0.75rem 0.25rem;
+  }
+
+  .abt-article-title {
+    font-size: 1.375rem !important;
+  }
+
+  .abt-subjects {
+    .abt-subject-link {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.375rem;
+    }
+  }
+}
+
+// Tablet specific styles
+@media (min-width: 769px) and (max-width: 1023px) {
+  .abt-academic-post {
+    padding: 2rem 1.5rem;
+  }
+
+  .abt-article-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  // Tablet-optimized grid
+  .abt-posts-container.abt-view-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
